@@ -1,0 +1,35 @@
+# FreeBSD 11.1 notes for Acer Aspire 5738
+
+### Sound
+mixer vol +8
+mixer vol -8
+mixer vol mute # equivalent to mixer vol 0. Does not save previous value.
+mixer vol 56 # scales 0-100
+
+Send audio to hdmi:
+sysctl hw.snd.default_unit=2
+
+### Video
+For intel integrated graphics
+pkg install xf86-video-intel
+
+For screen brightness, check contents of  https://github.com/bgstack15/bgscripts/blob/master/usr/share/bgscripts/gui/hwset.sh
+
+### Get hardware information
+kenv
+kenv | grep smbios.system
+kenv smbios.system.maker
+kenv smbios.system.product
+
+### Packages
+List available packages
+pkg search \. > ~/pkg.search.$( date "+%Y-%m-%d" ).log
+
+List installed packages
+pkg info > ~/pkg.info.$( date "+%Y-%m-%d" ).log
+
+### CPU temperature
+sysctl hw.acpi.thermal.tz{0,1}.temperature
+
+# Reference
+https://forums.freebsd.org/threads/17849/
